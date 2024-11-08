@@ -16,7 +16,7 @@ const MobNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="text-primary body-font bg-black flex flex-col md:hidden">
+<header className="text-primary body-font bg-black flex flex-col md:hidden w-full fixed top-0 left-0 z-10">
       <div className="container mx-auto flex justify-between items-center p-5">
         <div>
           <Link href="/" className="flex items-center font-black text-2xl">
