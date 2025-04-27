@@ -1,42 +1,62 @@
-import React from "react";
+"use client";
+
+import { motion } from "framer-motion";
 import Image from "next/image";
+import { useTheme } from "next-themes"; // Step 1: Import useTheme
 
-const About = () => {
+export default function About() {
+  const { theme } = useTheme(); // Step 2: Get current theme
+
+  // Step 3: Conditional Image Source
+  const imageSrc = theme === "dark" ? "/images/ill/HOME-WHITE.png" : "/images/ill/HOME-BLACK.png";
+
   return (
-    <div className="container mx-auto flex gap-12 md:gap-0 px-16 py-24 md:flex-row flex-col items-center justify-center ">
-      <div>
-        <Image
-          className="object-cover object-center rounded ring-2 ring-primary shadow-lg shadow-secondary/60"
-          alt="hero"
-          src="/images/about.jpg"
-          width={520}
-          height={460}
-        />
-      </div>
-      <div className="lg:flex-grow md:w-1/2 lg:pl-24 md:pl-16 flex flex-col md:items-start md:text-left items-center text-center">
-        <h1 className="title-font sm:text-6xl text-4xl font-black  text-white">
-          Why
-          <span className="text-secondary"> Choose Us?</span>
-        </h1>
-        <p className="mt-10 leading-relaxed">
-        Personalized Training: Tailored fitness plans to meet your unique goals and needs.
-          <br />
-          <br />
-          Expert Trainers: Our certified trainers provide guidance and motivation every step of the way.
-          <br />
-          <br />
-          Motivating Community: Join a supportive and encouraging environment that pushes you to succeed.
-          <br />
-          <br />
-          Flexible Timings: Convenient hours to fit your busy lifestyle and fitness goals.
-        </p>
+    <section
+      id="about"
+      className="py-20 dark:bg-gray-900/50 bg-gray-100/50"
+    >
+      <div className="container mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="flex flex-col md:flex-row items-center gap-12"
+        >
+          <div className="md:w-1/2">
+            <div className="relative w-full h-90 md:h-96 rounded-2xl overflow-hidden shadow-lg flex items-center justify-center">
+              <Image
+                src={imageSrc} // Step 4: Use conditional image
+                alt="About Illustration"
+                width={450}
+                height={500}
+                className="object-contain"
+              />
+            </div>
+          </div>
 
-        <button className="inline-flex text-lg font-medium text-white mt-10 border-0 px-6 focus:outline-none py-2 bg-black border-none shadow-primary ring-2 ring-primary shadow-md rounded-lg hover:scale-105 transform transition duration-300">
-          Get Started with a Free Lesson!
-        </button>
+          <div className="md:w-1/2">
+            <h2 className="text-3xl md:text-4xl font-bold dark:text-white text-black mb-6">
+              About Me
+            </h2>
+            <p className="dark:text-gray-300 text-gray-700 mb-4 text-lg">
+              I'm Huzaifa Naeem, a 17-year-old frontend developer and freelance graphic designer based in Karachi, Pakistan. Currently, I'm pursuing my intermediate (Pre-Engineering) studies while working on freelance projects.
+            </p>
+
+            <p className="dark:text-gray-300 text-gray-700 mb-4 text-lg">
+              <strong>2024 – Present:</strong> Enrolled in the Governor House Sindh IT Initiative (GIAIC), where I'm learning web development and Python programming with a focus on building AI agents and smart solutions for the future.
+            </p>
+
+            <p className="dark:text-gray-300 text-gray-700 mb-4 text-lg">
+              <strong>2021 – Present:</strong> Freelancing as a graphic designer with 3+ years of experience in logo design, brand identity, and vector tracing. I’ve worked with a variety of clients to bring their creative visions to life.
+            </p>
+
+            <p className="dark:text-gray-300 text-gray-700 mb-6 text-lg">
+              With expertise in React, Next.js, and Tailwind CSS, I build responsive, user-friendly websites. I'm passionate about technology, continuously expanding my skills in both frontend development and artificial intelligence.
+            </p>
+          </div>
+        </motion.div>
       </div>
-    </div>
+    </section>
   );
-};
-
-export default About;
+}

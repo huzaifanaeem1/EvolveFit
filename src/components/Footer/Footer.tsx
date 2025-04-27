@@ -1,53 +1,65 @@
 import Link from "next/link";
-import React from "react";
-import { FaFacebook, FaInstagramSquare } from "react-icons/fa";
-import { FaLinkedin, FaSquareXTwitter } from "react-icons/fa6";
-const Footer = () => {
+import { FaInstagramSquare } from "react-icons/fa";
+import {  FaGithub, FaLinkedin, FaFacebook, FaSquareXTwitter } from "react-icons/fa6";
+
+export default function Footer() {
   return (
-    <div>
-      <footer className="text-white bg-black body-font">
-        <div className="container px-5 py-8 mx-auto flex items-center sm:flex-row flex-col">
-          <Link
-            className="flex title-font font-medium items-center md:justify-start justify-center text-white"
-            href={"/"}
-          >
-            <span className="ml-3 text-xl font-bold">
-            Evolve
-              <span className="text-primary"> Fit</span>
-            </span>
+    <footer className="bg-white dark:bg-black border-t dark:border-gray-800 border-gray-200 py-6">
+      <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
+        {/* Left side: Logo and Text */}
+        <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
+          <Link href="/" className="text-2xl font-bold text-black dark:text-white">
+            Huzaifa<span className="text-primary"> Naeem</span>
           </Link>
-          <p className="text-md text-white sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-primary sm:py-2 sm:mt-0 mt-4">
-            © 2024 Evolve <span className="text-primary">Fit</span>
+          <p className="text-gray-600 dark:text-gray-400 text-sm">
+            © {new Date().getFullYear()} All rights reserved.
           </p>
-          <span className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
-            <a href="https://www.facebook.com/share/91NKfwYSFLSKCXBX/?mibextid=qi2Omg"
-                target="_blank"
-                rel="noopener noreferrer">
-              <FaFacebook className="w-8 h-8 hover:text-secondary hover:scale-110 transform transition duration-400" />
-            </a>
-            <a className="ml-4"
+        </div>
+
+        {/* Right side: Social Icons */}
+        <div className="flex space-x-6 mt-4 md:mt-0">
+          <a
+            href="https://github.com/huzaifanaeem1"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-600 dark:text-gray-400 hover:text-black hover:dark:text-white transition"
+          >
+            <FaGithub size={24} />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/huzaifa-naeem-b9a94428b/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-600 dark:text-gray-400 hover:text-black hover:dark:text-white transition"
+          >
+            <FaLinkedin size={24} />
+          </a>
+          <a
+            href="https://www.facebook.com/share/91NKfwYSFLSKCXBX/?mibextid=qi2Omg"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-600 dark:text-gray-400 hover:text-black hover:dark:text-white transition"
+          >
+            <FaFacebook size={24} />
+          </a>
+          <a
             href="https://x.com/Huzai_fa123?t=DnFYfJoMreRFqN08hnQP6A&s=09"
             target="_blank"
-            rel="noopener noreferrer">
-              <FaSquareXTwitter className="w-8 h-8 hover:text-secondary hover:scale-110 transform transition duration-400" />
-            </a>
-            <a className="ml-4"
+            rel="noopener noreferrer"
+            className="text-gray-600 dark:text-gray-400 hover:text-black hover:dark:text-white transition"
+          >
+            <FaSquareXTwitter size={24} />
+          </a>
+          <a
             href="https://www.instagram.com/__.zefa.__?igsh=a2J4a3dvcWF2Njg5"
             target="_blank"
-            rel="noopener noreferrer">
-              <FaInstagramSquare className="w-8 h-8 hover:text-secondary  hover:scale-110 transform transition duration-400" />
-            </a>
-            <a className="ml-4"
-            href="https://www.linkedin.com/in/huzaifa-naeem-8949692b5?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
-            target="_blank"
-            rel="noopener noreferrer">
-              <FaLinkedin className="w-8 h-8 hover:text-secondary  hover:scale-110 transform transition duration-400" />
-            </a>
-          </span>
+            rel="noopener noreferrer"
+            className="text-gray-600 dark:text-gray-400 hover:text-black hover:dark:text-white transition"
+          >
+            <FaInstagramSquare size={24} />
+          </a>
         </div>
-      </footer>
-    </div>
+      </div>
+    </footer>
   );
-};
-
-export default Footer;
+}

@@ -1,12 +1,17 @@
-import { HeroSection, Services, Testimonials, Contact } from "@/components/";
+
+import { Navbar, Hero, About, Skills, Projects, Contact, Footer, Testimonials } from "@/components";
 
 export default function Home() {
   return (
-    <div>
-      <HeroSection />
-      <Services />
-      <Testimonials />
+    <main className="dark:bg-black bg-white">
+      <Navbar />
+      <Hero />
+      <About />
+      <Skills />
+      <Projects />
+      <Testimonials  />
       <Contact />
-    </div>
+      <Footer />
+    </main>
   );
 }

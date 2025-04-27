@@ -1,65 +1,147 @@
+"use client";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { FiMenu, FiX } from "react-icons/fi";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+
 import Link from "next/link";
-import React from "react";
-import NavLink from "./NavLink";
-import { Button } from "../";
-import { MdFitnessCenter } from "react-icons/md";
+import ThemeToggle from "../ThemeToggle";
 
-const navItems = [
-  {
-    id: 1,
-    name: "Home",
-    slug: "/",
-  },
-  {
-    id: 2,
-    name: "About us",
-    slug: "/about",
-  },
-  {
-    id: 3,
-    name: "Pricing",
-    slug: "/pricing",
-  },
-  {
-    id: 4,
-    name: "Trainers",
-    slug: "/trainers",
-  },
-];
-const Navbar = () => {
-return (
-  <header className="text-white body-font bg-black hidden md:flex fixed w-full top-0 left-0 z-10">
-    <div className="container mx-auto flex flex-wrap p-5 items-center">
-      <div className="flex items-center text-primary">
-        {/* Logo Icon and Text */}
-        <Link href={"/"} className="lg:ml-5 font-black text-3xl flex items-center gap-2">
-          <MdFitnessCenter className="text-primary text-3xl" /> {/* Icon added here */}
-          <span className="text-white">Evolve</span> Fit
-        </Link>
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const navLinks = [
+    { name: "Home", href: "#home" },
+    { name: "About", href: "#about" },
+    { name: "Skills", href: "#skills" },
+    { name: "Projects", href: "#projects" },
+    { name: "Testimoni", href: "#testimonials" },
+    { name: "Contact", href: "#contact" },
+    { name: "Resume", href: "/images/huzaifa resume.pdf" }, // Add the link to your resume
+  ];
+
+  const socialLinks = [
+    { icon: <FaGithub />, href: "https://github.com/huzaifanaeem1" },
+    { icon: <FaLinkedin />, href: "https://www.linkedin.com/in/huzaifa-naeem-b9a94428b/" },
+    { icon: <MdEmail />, href: "mailto:huzaifaneem1407@gmail.com" }, // mailto will open email client
+  ];
+
+  return (
+    <header
+      className={`fixed w-full z-50 transition-all duration-300 ${
+        scrolled
+          ? "dark:bg-black/90 bg-white/90 backdrop-blur-sm shadow-sm"
+          : "dark:bg-black bg-white"
+      }`}
+    >
+      <div className="container mx-auto px-6 py-3">
+        <div className="flex items-center justify-between">
+          {/* Left side - Logo/Name */}
+          <div className="flex items-center space-x-3">
+            <img
+              src="/images/ill/profile.png"
+              alt="Profile"
+              className="w-10 h-10 rounded-full object-cover"
+            />
+            <Link
+              href="#home"
+              className="text-2xl font-bold dark:text-white text-black"
+            >
+              Huzaifa Naeem
+            </Link>
+          </div>
+
+          {/* Middle - Navigation Links (Desktop only) */}
+          <nav className="hidden md:flex items-center space-x-8 mx-6 flex-grow justify-center">
+            {navLinks.map((link) => (
+              <Link
+                key={link.name}
+                href={link.href}
+                className="dark:text-gray-300 text-gray-700 hover:dark:text-white hover:text-black transition-colors font-medium"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Right side - Social Links and Theme Toggle (Desktop) */}
+          <div className="hidden md:flex items-center space-x-4">
+          {socialLinks.map((social, idx) => (
+  <a
+    key={idx}
+    href={social.href}  // This href includes the mailto: link for the email
+    target="_blank"
+    rel="noopener noreferrer"
+    className="dark:text-gray-300 text-gray-700 hover:dark:text-white hover:text-black transition-colors text-xl"
+  >
+    {social.icon}
+  </a>
+))}
+
+            <ThemeToggle />
+          </div>
+
+          {/* Mobile menu button and theme toggle */}
+          <div className="flex md:hidden items-center space-x-4">
+            <ThemeToggle />
+            <button
+              className="dark:text-white text-black focus:outline-none"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              {isOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile menu */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="md:hidden overflow-hidden"
+            >
+              <nav className="flex flex-col space-y-4 mt-4">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    className="dark:text-gray-300 text-gray-700 hover:dark:text-white hover:text-black transition-colors font-medium py-2"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {link.name}
+                  </Link>
+                ))}
+                <div className="flex items-center space-x-4 py-4">
+                  {socialLinks.map((social, idx) => (
+                    <a
+                      key={idx}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="dark:text-gray-300 text-gray-700 hover:dark:text-white hover:text-black transition-colors text-xl"
+                    >
+                      {social.icon}
+                    </a>
+                  ))}
+                </div>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-
-      <nav className="md:ml-auto flex items-center gap-2 lg:gap-8 mt-5 md:mt-0 text-base justify-center">
-        {navItems.map((item) => (
-          <NavLink slug={item.slug} key={item.id} name={item.name} />
-        ))}
-      </nav>
-
-      <a
-        className="ml-4"
-        href="https://www.linkedin.com/in/huzaifa-naeem-8949692b5?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <Button
-          type="button"
-          className="py-[2px] ml-8 bg-black border-2 border-none shadow-primary ring-2 ring-primary shadow-md"
-        >
-          Join us
-        </Button>
-      </a>
-    </div>
-  </header>
-);
-};
-
-export default Navbar;
+    </header>
+  );
+}
